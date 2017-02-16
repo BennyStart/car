@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ben.dao.CarInfoMapper">
+
+	<resultMap type="baseModel" id="superMap">
+	    <result property="id" 			column="id"/>
+	    <result property="recVer" 		column="rec_ver" />
+	    <result property="recStatus" 	column="rec_status" />
+	    <result property="createTime" 	column="create_time" />
+	</resultMap>
+
+
+    <resultMap id="CarInfoResultMap" type="carInfo" extends="superMap">
+        <result property="carName"    column="car_name" />
+        <result property="amt"    column="amt" />
+        <result property="carType"    column="car_type" />
+        <result property="imgUrl"    column="img_url" />
+    </resultMap>
+
+	<!-- 查询条件 -->
+	<sql id="condition">
+		WHERE 1=1
+			<if test="id!=null and id!=''"> and id = #{id}</if>
+			<if test="carName!=null and carName!=''"> and car_name = #{carName}</if>
+			<if test="carType!=null and carType!=''"> and car_type = #{carType}</if>
+			<if test="recStatus!=null and recStatus!=''"> and rec_status = #{recStatus}</if>
+			<if test="idList!= null and idList.size() > 0">
+	      	and id in
+	      	<foreach collection="idList" item="id" open="("
+					separator="," close=")">
+	        	#{id}
+	      	</foreach>
+	   	</if>
+	</sql>
+	
+	<sql id="select">
+		select
+			id,
+			car_name,
+			car_type
+			amt,
+			create_time,
+			img_url,
+			rec_status,
+			rec_ver
+		from car_info
+	</sql>
+	
+	<!-- 查询 -->
+	<select id="selectByCondition" resultMap="CarInfoResultMap" parameterType="carInfoQueryCondition">
+	    <include refid="select"></include>
+	    <include refid="condition"></include>
+	</select>
+	
+	<!-- 查询总数量 -->
+	<select id="selectByIndexCount" resultType="int" parameterType="carInfo">
+	    select count(1) from car_info
+	    <include refid="condition"></include>
+	</select>
+	
+	<!-- id查询 -->
+	<select id="selectById" resultMap="CarInfoResultMap" parameterType="String">
+	    <include refid="select"></include>
+	    where id = #{id}
+	</select>
+	
+	<!-- 删除 -->
+	<delete id="deleteById" parameterType="String">
+	    UPDATE car_info
+	    SET  rec_status = 1  
+	    where id = #{id}
+	</delete>	
+	
+	<!-- 插入 -->
+	<insert id="save" parameterType="carInfo">
+    INSERT INTO car_info(
+	    id,
+	    car_name,
+	    car_type,
+	    amt,
+	    create_time,
+	    img_url,
+		rec_status,
+		rec_ver
+		    ) VALUES (
+		#{id,jdbcType=INTEGER},
+		#{carName,jdbcType=VARCHAR},
+		#{carType,jdbcType=VARCHAR},
+		#{amt,jdbcType=DOUBLE},
+		#{createTime,jdbcType=DATE},
+		#{imgUrl,jdbcType=VARCHAR},
+		0,
+		0
+    )
+    </insert>
+  
+    <!-- 修改 -->
+  	<update id="updateById" parameterType="carInfo">
+  	update car_info
+  	set
+  		car_name=#{carName,jdbcType=VARCHAR},
+  		car_type=#{carType,jdbcType=VARCHAR},
+  		amt=#{amt,jdbcType=DOUBLE},
+  		img_url=#{imgUrl,jdbcType=VARCHAR},
+  		recVer = recVer + 1
+  	where id=#{id,jdbcType=INTEGER} and recVer = #{recVer,jdbcType=INTEGER}
+  	</update>
+	
+	
+	
+	
+</mapper>
