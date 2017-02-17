@@ -105,5 +105,16 @@
 
     <!-- 启用对事务注解的支持 -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
-
+    
+    <!-- 初始化redis -->
+	<bean class="com.ben.util.RedisUtil" init-method="init">
+		<property name="addr" value="${redis.host}"/>
+        <property name="port" value="${redis.port}"/>
+        <property name="auth" value="${redis.password}"/>
+	</bean> 
+    
+    <!-- 配置初始化加载类 -->
+	<bean class="com.ben.common.InitDataListener" init-method="init"></bean>
+	
+	
 </beans>
