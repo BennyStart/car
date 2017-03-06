@@ -1,0 +1,5 @@
+-- Add/modify columns 
+alter table BMS.EF_AR_BILL_HEADER add import_success_time DATE;
+-- Add comments to the columns 
+comment on column BMS.EF_AR_BILL_HEADER.import_success_time
+  is '引入EMS成功时间';

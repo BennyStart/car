@@ -5,7 +5,7 @@
     <artifactId>car</artifactId>
     <packaging>war</packaging>
     <version>1.0.0</version>
-    <url>https://github.com/starzou/quick4j</url>
+    <url>https://github.com/BennyStart/car</url>
   <build>
         <finalName>car</finalName>
         <plugins>
@@ -104,7 +104,11 @@
         <aspectj.version>1.6.12</aspectj.version>
         <netty.version>4.0.18.Final</netty.version>
         <hibernate.validator.version>5.1.1.Final</hibernate.validator.version>
-        <jedis_version>2.8.1</jedis_version>
+        <jedis.version>2.8.1</jedis.version>
+        <spring.websocket.version>4.0.2.RELEASE</spring.websocket.version>
+        <cxf.version>3.1.5</cxf.version>
+        <dom4j.version>2.0.0</dom4j.version>
+        <poi.version>3.13</poi.version>
     </properties>
 
     <dependencies>
@@ -356,9 +360,52 @@
         <dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
-			<version>${jedis_version}</version>
+			<version>${jedis.version}</version>
 		</dependency>
-
+		
+		<dependency>
+	      <groupId>org.springframework</groupId>
+	      <artifactId>spring-websocket</artifactId>
+	      <version>${spring.websocket.version}</version>
+	    </dependency>
+	    
+	     <dependency>  
+		    <groupId>org.apache.cxf</groupId>  
+		    <artifactId>cxf-rt-frontend-jaxws</artifactId>  
+		    <version>${cxf.version}</version>  
+		</dependency> 
+	    <dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-simple</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml-schemas</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>${dom4j.version}</version>
+		</dependency>
     </dependencies>
   
 </project>

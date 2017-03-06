@@ -21,7 +21,7 @@
     http://www.springframework.org/schema/util/spring-util.xsd">
 
     <!-- 自动扫描com包 ,将带有注解的类 纳入spring容器管理 -->
-    <context:component-scan base-package="com.ben"></context:component-scan>
+    <context:component-scan base-package="com.ben.service"></context:component-scan>
 
     <!-- 引入配置文件 -->
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -107,14 +107,19 @@
     <tx:annotation-driven transaction-manager="transactionManager"/>
     
     <!-- 初始化redis -->
-	<bean class="com.ben.util.RedisUtil" init-method="init">
+	<!-- <bean class="com.ben.util.RedisUtil" init-method="init">
 		<property name="addr" value="${redis.host}"/>
         <property name="port" value="${redis.port}"/>
         <property name="auth" value="${redis.password}"/>
-	</bean> 
+	</bean>  -->
     
     <!-- 配置初始化加载类 -->
-	<bean class="com.ben.common.InitDataListener" init-method="init"></bean>
+	<!-- <bean class="com.ben.common.InitDataListener" init-method="init"></bean> -->
 	
-	
+	<!-- excel导入 -->
+	<bean class="com.ben.common.excel.ExcelXmlParserConfigManager"></bean>
+	<bean class="com.ben.common.excel.ExcelLoadService"></bean>
+	<bean class="com.ben.common.excel.ExcelParser"></bean>
+	<!-- excel导出 -->
+	<bean class="com.ben.common.excel.ExcelDownService"></bean>
 </beans>

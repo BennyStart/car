@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<sheet>
+		<!--excelProcessor 执行器的名称 -->
+		<processor bean="testXmlProcessor"></processor>
+		<columns>
+			<!--columns表示字段属性与列下标的映射关系，下标从1开始 -->
+			<column name="username" index="1"></column>
+			<column name="sex" index="2"></column>
+		</columns>
+		<!--数据解析的起始行，从1开始 -->
+		<startRowIndex>2</startRowIndex>
+		<params>
+			<param key="ckey1" value="值1"></param>
+			<param key="ckey2" value="值2"></param>
+		</params>
+	</sheet>
+</config>
